@@ -94,10 +94,10 @@ const Navbar = () => {
                         </Link>
                     </li>
                     <li className="nav__item">
-                        <a href="#" className="nav__link">
+                        <Link to="/instant-consultation" className="nav__link">
                             <i className="fas fa-calendar-check"></i>
-                            <span>Appointments</span>
-                        </a>
+                            <span>Instant Consultation</span>
+                        </Link>
                     </li>
 
                     {isLoggedIn ? (
