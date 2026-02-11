@@ -20,7 +20,7 @@ body {
 .signup-container {
     display: flex;
     min-height: 100vh;
-    margin-top: 80px;
+    margin-top: 80px; /* Gap for navbar */
 }
 
 /* ===== Left Side - Branding ===== */
@@ -384,8 +384,4 @@ body {
 
 .form-group input:invalid:not(:placeholder-shown) {
     border-color: #e53e3e;
-}
-
-.form-group select:valid {
-    border-color: #48bb78;
 }
