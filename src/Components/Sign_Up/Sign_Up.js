@@ -31,21 +31,28 @@ const Sign_Up = () => {
         });
         const json = await response.json(); // Parse the response JSON
         if (json.authtoken) {
-            // Store user data in session storage
             sessionStorage.setItem("auth-token", json.authtoken);
             sessionStorage.setItem("name", name);
             sessionStorage.setItem("phone", phone);
             sessionStorage.setItem("email", email);
-            // Redirect user to home page
             navigate("/");
-            window.location.reload(); // Refresh the page
+            window.location.reload();
         } else {
-            if (json.errors) {
-                for (const error of json.errors) {
-                    setShowerr(error.msg); // Show error messages
+            if (Array.isArray(json.error)) {
+                // Handle express-validator array of errors
+                setShowerr(json.error[0].msg);
+            } else if (json.error) {
+                // Handle single string error (e.g. user already exists)
+                setShowerr(json.error);
+            } else if (json.errors) {
+                // Handle other error formats if any
+                if (Array.isArray(json.errors)) {
+                    setShowerr(json.errors[0].msg);
+                } else {
+                    setShowerr(json.errors);
                 }
             } else {
-                setShowerr(json.error);
+                setShowerr("An unknown error occurred");
             }
         }
     };
