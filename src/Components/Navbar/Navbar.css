@@ -132,17 +132,17 @@ body {
 }
 
 /* Hover Effect for Regular Links */
-.nav__link:not(.btn-signup):not(.btn-login):hover {
+.nav__link:not(.nav-btn-signup):not(.nav-btn-login):hover {
     color: #667eea;
     background: rgba(102, 126, 234, 0.08);
 }
 
-.nav__link:not(.btn-signup):not(.btn-login):hover i {
+.nav__link:not(.nav-btn-signup):not(.nav-btn-login):hover i {
     transform: translateY(-2px);
 }
 
 /* Underline Animation */
-.nav__link:not(.btn-signup):not(.btn-login)::after {
+.nav__link:not(.nav-btn-signup):not(.nav-btn-login)::after {
     content: '';
     position: absolute;
     bottom: 8px;
@@ -155,34 +155,34 @@ body {
     transform: translateX(-50%);
 }
 
-.nav__link:not(.btn-signup):not(.btn-login):hover::after {
+.nav__link:not(.nav-btn-signup):not(.nav-btn-login):hover::after {
     width: 60%;
 }
 
 /* ===== Button Styles ===== */
-.btn-signup {
+.nav-btn-signup {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff !important;
     border: none;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-.btn-signup:hover {
+.nav-btn-signup:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
 }
 
-.btn-signup:hover i {
+.nav-btn-signup:hover i {
     transform: rotate(-5deg) scale(1.1);
 }
 
-.btn-login {
+.nav-btn-login {
     background: transparent;
     color: #667eea !important;
     border: 2px solid #667eea;
 }
 
-.btn-login:hover {
+.nav-btn-login:hover {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff !important;
     border-color: transparent;
@@ -190,7 +190,7 @@ body {
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-.btn-login:hover i {
+.nav-btn-login:hover i {
     transform: translateX(3px);
 }
 
@@ -231,12 +231,12 @@ body {
         border-radius: 12px;
     }
 
-    .nav__link:not(.btn-signup):not(.btn-login)::after {
+    .nav__link:not(.nav-btn-signup):not(.nav-btn-login)::after {
         display: none;
     }
 
-    .btn-signup,
-    .btn-login {
+    .nav-btn-signup,
+    .nav-btn-login {
         width: 90%;
         justify-content: center;
     }

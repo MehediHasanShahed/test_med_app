@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -29,11 +30,11 @@ const Navbar = () => {
             <nav className="navbar">
                 {/* Logo Section with Doctor Icon */}
                 <div className="nav__logo">
-                    <a href="/">
+                    <Link to="/">
                         {/* Doctor Icon using Font Awesome */}
                         <i className="fas fa-user-doctor doctor-icon"></i>
                         <span className="logo-text">Stay<span className="highlight">Healthy</span></span>
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Mobile Menu Toggle */}
@@ -44,10 +45,10 @@ const Navbar = () => {
                 {/* Navigation Links */}
                 <ul className={menuOpen ? "nav__links active" : "nav__links"} id="nav-menu">
                     <li className="nav__item">
-                        <a href="../Landing_Page/LandingPage.html" className="nav__link">
+                        <Link to="/" className="nav__link">
                             <i className="fas fa-home"></i>
                             <span>Home</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav__item">
                         <a href="#" className="nav__link">
@@ -56,16 +57,16 @@ const Navbar = () => {
                         </a>
                     </li>
                     <li className="nav__item">
-                        <a href="../Sign_Up/Sign_Up.html" className="nav__link btn-signup">
+                        <Link to="/sign-up" className="nav__link nav-btn-signup">
                             <i className="fas fa-user-plus"></i>
                             <span>Sign Up</span>
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav__item">
-                        <a href="../Login/Login.html" className="nav__link btn-login">
+                        <Link to="/login" className="nav__link nav-btn-login">
                             <i className="fas fa-sign-in-alt"></i>
                             <span>Login</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </nav>
