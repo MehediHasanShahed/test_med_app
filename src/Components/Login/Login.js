@@ -1,58 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
-    const [showPassword, setShowPassword] = useState(false);
-    const [errors, setErrors] = useState({});
+    // State variables for email and password
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // Restore password toggle state
+
+    // Get navigation function from react-router-dom
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-        if (errors[name]) {
-            setErrors({
-                ...errors,
-                [name]: ''
-            });
+    // Check if user is already authenticated, then redirect to home page
+    useEffect(() => {
+        if (sessionStorage.getItem("auth-token")) {
+            navigate("/");
         }
-    };
+    }, []);
 
     const togglePassword = () => {
         setShowPassword(!showPassword);
     };
 
-    const validate = () => {
-        const newErrors = {};
-        if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Email is invalid';
-        }
-
-        if (!formData.password) {
-            newErrors.password = 'Password is required';
-        }
-
-        return newErrors;
-    };
-
-    const handleSubmit = (e) => {
+    // Function to handle login form submission
+    const login = async (e) => {
         e.preventDefault();
-        const validationErrors = validate();
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-        } else {
-            console.log('Login data:', formData);
-            alert('Login successful! Welcome back to StayHealthy.');
+        // Send a POST request to the login API endpoint
+        const res = await fetch(`${API_URL}/api/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        });
+
+        // Parse the response JSON
+        const json = await res.json();
+        if (json.authtoken) {
+            // If authentication token is received, store it in session storage
+            sessionStorage.setItem('auth-token', json.authtoken);
+            sessionStorage.setItem('email', email);
+            // Redirect to home page and reload the window
             navigate('/');
+            window.location.reload();
+        } else {
+            // Handle errors if authentication fails
+            if (json.errors) {
+                for (const error of json.errors) {
+                    alert(error.msg);
+                }
+            } else {
+                alert(json.error);
+            }
         }
     };
 
@@ -86,65 +89,80 @@ const Login = () => {
             <div className="login-form-container">
                 <div className="form-header">
                     <h2>Login</h2>
-                    <p>Don't have an account? <Link to="/sign-up">Sign Up</Link></p>
+                    <p>Are you a new member? <Link to="/sign-up">Sign Up Here</Link></p>
                 </div>
 
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="email">
-                            <i className="fas fa-envelope"></i> Email Address <span className="required">*</span>
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Enter your email address"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className={errors.email ? 'error' : ''}
-                        />
-                        {errors.email && <span className="error-text">{errors.email}</span>}
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="password">
-                            <i className="fas fa-lock"></i> Password <span className="required">*</span>
-                        </label>
-                        <div className="password-input">
+                <div className="login-form">
+                    <form onSubmit={login}>
+                        {/* Email Field */}
+                        <div className="form-group">
+                            <label htmlFor="email">
+                                <i className="fas fa-envelope"></i> Email
+                            </label>
                             <input
-                                type={showPassword ? "text" : "password"}
-                                id="password"
-                                name="password"
-                                placeholder="Enter your password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                className={errors.password ? 'error' : ''}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                type="email"
+                                name="email"
+                                id="email"
+                                className="form-control"
+                                placeholder="Enter your email"
+                                aria-describedby="helpId"
+                                required
                             />
-                            <i
-                                className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} toggle-password`}
-                                onClick={togglePassword}
-                            ></i>
                         </div>
-                        {errors.password && <span className="error-text">{errors.password}</span>}
-                    </div>
 
-                    <div className="form-options">
-                        <label className="remember-me">
-                            <input type="checkbox" name="remember" />
-                            <span>Remember me</span>
-                        </label>
-                        <a href="#" className="forgot-password">Forgot Password?</a>
-                    </div>
+                        {/* Password Field */}
+                        <div className="form-group">
+                            <label htmlFor="password">
+                                <i className="fas fa-lock"></i> Password
+                            </label>
+                            <div className="password-input">
+                                <input
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    id="password"
+                                    className="form-control"
+                                    placeholder="Enter your password"
+                                    aria-describedby="helpId"
+                                    required
+                                />
+                                <i
+                                    className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} toggle-password`}
+                                    onClick={togglePassword}
+                                ></i>
+                            </div>
+                        </div>
 
-                    <div className="form-buttons">
-                        <button type="submit" className="btn btn-login">
-                            <i className="fas fa-sign-in-alt"></i> Login
-                        </button>
-                    </div>
-                </form>
+                        {/* Form Options (Remember Me / Forgot Password) */}
+                        <div className="form-options">
+                            <label className="remember-me">
+                                <input type="checkbox" name="remember" />
+                                <span>Remember me</span>
+                            </label>
+                            <a href="#" className="forgot-password">Forgot Password?</a>
+                        </div>
+
+                        <div className="form-buttons">
+                            <button type="submit" className="btn btn-login">
+                                <i className="fas fa-sign-in-alt"></i> Login
+                            </button>
+                            <button
+                                type="reset"
+                                className="btn btn-login"
+                                style={{ background: '#edf2f7', color: '#4a5568', marginTop: '10px' }}
+                                onClick={() => { setEmail(''); setPassword(''); }}
+                            >
+                                <i className="fas fa-undo"></i> Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default Login;

@@ -154,14 +154,18 @@ const Sign_Up = () => {
 
                         {/* Buttons */}
                         <div className="form-buttons">
-                            <button type="submit" className="btn btn-submit">Sign Up</button>
-                            <button type="reset" className="btn btn-reset" onClick={() => {
+                            <button type="submit" className="btn btn-submit">
+                                <i className="fas fa-user-plus"></i> Sign Up
+                            </button>
+                            <button type="reset" className="btn btn-submit" style={{ background: '#edf2f7', color: '#4a5568' }} onClick={() => {
                                 setName('');
                                 setPhone('');
                                 setEmail('');
                                 setPassword('');
                                 setShowerr('');
-                            }}>Reset</button>
+                            }}>
+                                <i className="fas fa-undo"></i> Reset
+                            </button>
                         </div>
                     </form>
                 </div>
