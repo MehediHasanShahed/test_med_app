@@ -15,6 +15,7 @@ function App() {
     <>
       <BrowserRouter>
         <Notification>
+          <Navbar />
           <Routes>
             <Route path="/" element={<Landing_Page />} />
             <Route path="/sign-up" element={<Sign_Up />} />
