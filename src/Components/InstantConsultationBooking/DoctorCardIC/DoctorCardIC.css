@@ -10,7 +10,11 @@
     margin-bottom: 20px;
   }
   .cancel-appointment {
-    background-color: red;
+    background-color: #dc3545; /* Red color for cancel */
+  }
+  
+  .cancel-appointment:hover {
+      background-color: #bb2d3b;
   }
   
   .doctor-card-details-container {

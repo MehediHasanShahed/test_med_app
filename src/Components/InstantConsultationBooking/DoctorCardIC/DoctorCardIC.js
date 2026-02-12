@@ -10,6 +10,13 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
   const [showModal, setShowModal] = useState(false);
   const [appointments, setAppointments] = useState([]);
 
+  useEffect(() => {
+    const getAppointments = JSON.parse(localStorage.getItem('instantAppointmentData')) || [];
+    const doctorAppointments = getAppointments.filter(appointment => appointment.doctorName === name);
+    setAppointments(doctorAppointments);
+  }, [name]);
+
+
   const handleBooking = () => {
     setShowModal(true);
   };
@@ -17,16 +24,37 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
   const handleCancel = (appointmentId) => {
     const updatedAppointments = appointments.filter((appointment) => appointment.id !== appointmentId);
     setAppointments(updatedAppointments);
+
+    // Update localStorage (Global)
+    const storedAppointments = JSON.parse(localStorage.getItem('instantAppointmentData')) || [];
+    const updatedStoredAppointments = storedAppointments.filter((appointment) => appointment.id !== appointmentId);
+    localStorage.setItem('instantAppointmentData', JSON.stringify(updatedStoredAppointments));
+
+    // Dispatch custom event
+    window.dispatchEvent(new Event('instantAppointmentChange'));
   };
 
   const handleFormSubmit = (appointmentData) => {
     const newAppointment = {
       id: uuidv4(),
       ...appointmentData,
+      doctorName: name, // Store doctor name to distinguish
+      doctorSpeciality: speciality
     };
     const updatedAppointments = [...appointments, newAppointment];
     setAppointments(updatedAppointments);
     setShowModal(false);
+
+    // Persist to localStorage (Global)
+    const storedAppointments = JSON.parse(localStorage.getItem('instantAppointmentData')) || [];
+    const updatedStoredAppointments = [...storedAppointments, newAppointment];
+    localStorage.setItem('instantAppointmentData', JSON.stringify(updatedStoredAppointments));
+
+    // We do NOT update 'doctorData' here, so it won't affect the main Notification component which is for Booking Consultation
+    // localStorage.setItem('doctorData', JSON.stringify({ name, speciality })); 
+
+    // Dispatch custom event
+    window.dispatchEvent(new Event('instantAppointmentChange'));
   };
 
   return (
@@ -41,13 +69,6 @@ const DoctorCardIC = ({ name, speciality, experience, ratings, profilePic }) => 
           <div className="doctor-card-detail-experience">{experience} years experience</div>
           <div className="doctor-card-detail-consultationfees">Ratings: {ratings}</div>
         </div>
-        {/* for reference  */}
-        {/* <div>
-              <button className='book-appointment-btn'>                    
-                <div>Book Appointment</div>
-              <div>No Booking Fee</div>
-            </button>
-              </div> */}
       </div>
 
 

@@ -1,0 +1,35 @@
+.notification-container {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.notification-card {
+    background-color: #2196F3; /* Blue background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 350px;
+    color: white; /* White text */
+}
+
+.notification-card__title {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.notification-card__message {
+    margin: 8px 0;
+    font-size: 16px;
+    color: white;
+    line-height: 1.4;
+}
+
+.notification-card__message strong {
+    font-weight: bold;
+    margin-right: 5px;
+}

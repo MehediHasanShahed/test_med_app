@@ -69,6 +69,14 @@
     width: 100%;
     margin-top: 10px;
   }
+
+  .cancel-appointment {
+    background-color: #dc3545; /* Red color for cancel */
+  }
+
+  .cancel-appointment:hover {
+      background-color: #bb2d3b;
+  }
   
   .book-appointment-btn div:nth-child(2) {
     font-size: 12px;
