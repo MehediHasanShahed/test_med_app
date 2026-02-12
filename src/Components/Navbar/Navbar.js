@@ -99,6 +99,12 @@ const Navbar = () => {
                             <span>Instant Consultation</span>
                         </Link>
                     </li>
+                    <li className="nav__item">
+                        <Link to="/reviews" className="nav__link">
+                            <i className="fas fa-star"></i>
+                            <span>Reviews</span>
+                        </Link>
+                    </li>
 
                     {isLoggedIn ? (
                         <>
