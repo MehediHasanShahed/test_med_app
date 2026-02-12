@@ -1,165 +1,291 @@
+/* Basic Container Styles */
 .review-form-container {
   padding: 20px;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
+  margin-top: 100px; /* Better spacing from navbar */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .review-form-container h2 {
-  margin: 85px;
-  margin-bottom: 20px;
-  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 2.2rem;
+  border-bottom: 3px solid #007bff;
+  display: inline-block;
+  padding-bottom: 10px;
+  /* Reseting user's margin: 85px to avoid layout issues */
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* Table Styles */
 .review-table {
-  width: 1000px;
+  width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden; /* For border radius */
 }
 
 .review-table th,
 .review-table td {
-  padding: 12px 15px;
+  padding: 15px 20px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #eee;
 }
 
 .review-table th {
-  background-color: #f2f2f2;
-  color: #333;
-  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
 
 .review-table tr:hover {
-  background-color: #f5f5f5;
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
 }
 
+.review-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Button Styles */
 .feedback-btn {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 50px; /* Pill shape */
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0,123,255,0.3);
 }
 
 .review-table .feedback-btn:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,123,255,0.4);
 }
 
 .review-table .feedback-btn:disabled {
-  background-color: #cccccc;
+  background-color: #e9ecef;
+  color: #adb5bd;
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
 .no-appointments {
   text-align: center;
-  color: #777;
+  color: #6c757d;
   font-style: italic;
+  padding: 30px;
 }
 
-/* Modal Styles */
-.popup-content {
-  border-radius: 10px;
+/* -------------------------
+   Popup (scoped) styles
+-------------------------- */
+
+/* Overlay centered */
+.review-popup-overlay {
+  background: rgba(0, 0, 0, 0.55) !important;
+  backdrop-filter: blur(3px);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px;
+}
+
+/* This should NOT look like a white box */
+.review-popup-content {
+  width: min(92vw, 520px) !important;
+  margin: 0 !important;
   padding: 0 !important;
-  width: 400px !important;
   border: none !important;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+  background: transparent !important;
+  /* ✅ removes the big white right area */
+  box-shadow: none !important;
+  /* ✅ shadow will be on modal-content instead */
 }
 
+/* Now modal-content becomes the real “card” */
 .modal-content {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
+  width: 100% !important;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  padding: 22px;
+  animation: modalPop 180ms ease-out;
+  box-sizing: border-box;
 }
 
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Inner card */
+.modal-content {
+  padding: 22px;
+  background: #fff;
+}
+
+/* Header Layout Fix */
 .modal-header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 10px;
+  justify-content: space-between;
+  /* pushes title left and close right */
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eef2f7;
 }
 
+/* Center title visually */
 .modal-header h3 {
   margin-left: 10px;
-  margin-right: 160px;
-  color: #333;
+  margin-right: 130px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1f2937;
   white-space: nowrap;
 }
 
+/* Close button */
 .close-btn {
-  background: none;
+  background: transparent;
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #999;
+  color: #94a3b8;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
 }
 
 .close-btn:hover {
-  color: #333;
+  background: #f1f5f9;
+  color: #334155;
 }
 
+.close-btn:active {
+  transform: scale(0.98);
+}
+
+/* Form spacing + typography */
 .feedback-form .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .feedback-form label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.95rem;
 }
 
+.feedback-form p {
+  margin: 0;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+  border-radius: 10px;
+  color: #0f172a;
+}
+
+/* Inputs */
 .feedback-form input[type="text"],
 .feedback-form textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box; /* Ensures padding included in width */
+  padding: 12px 12px;
+  border: 1px solid #dbe3ee;
+  border-radius: 10px;
+  box-sizing: border-box;
   font-family: inherit;
+  font-size: 1rem;
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.feedback-form input[type="text"]:focus,
+.feedback-form textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18);
 }
 
 .feedback-form textarea {
-  height: 100px;
+  height: 120px;
   resize: vertical;
 }
 
-.submit-btn {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-  font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-.submit-btn:hover {
-  background-color: #218838;
-}
-
-.submit-btn:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
+/* Rating */
 .rating {
-    font-size: 24px;
-    cursor: pointer;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
 }
 
 .star {
-    color: #ccc;
-    margin-right: 5px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #e2e8f0;
+  transition: transform 0.12s ease, color 0.15s ease;
+}
+
+.star:hover {
+  transform: translateY(-1px);
+  color: #fbbf24;
 }
 
 .star.filled {
-    color: gold;
+  color: #f59e0b;
+}
+
+/* Submit */
+.submit-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 700;
+  transition: transform 0.1s, filter 0.2s;
+  margin-top: 8px;
+}
+
+.submit-btn:hover {
+  filter: brightness(0.96);
+}
+
+.submit-btn:active {
+  transform: scale(0.99);
+}
+
+.submit-btn:disabled {
+  background: #e2e8f0;
+  color: #64748b;
+  cursor: not-allowed;
 }

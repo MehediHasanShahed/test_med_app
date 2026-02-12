@@ -90,6 +90,7 @@ const ReviewForm = () => {
                 onClose={() => setShowModal(false)}
                 modal
                 closeOnDocumentClick
+                className="review-popup"
             >
                 <div className="modal-content">
                     <div className="modal-header">
