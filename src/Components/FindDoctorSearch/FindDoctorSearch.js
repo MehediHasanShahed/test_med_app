@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import './FindDoctorSearch.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const initSpeciality = [
     'Dentist', 'Gynecologist/obstetrician', 'General Physician', 'Dermatologist', 'Ear-nose-throat (ent) Specialist', 'Homeopath', 'Ayurveda'
 ]
 
 const FindDoctorSearch = () => {
+    const [searchParams] = useSearchParams();
     const [doctorResultHidden, setDoctorResultHidden] = useState(true);
-    const [searchDoctor, setSearchDoctor] = useState('');
+    const [searchDoctor, setSearchDoctor] = useState(searchParams.get('speciality') || '');
     const [specialities, setSpecialities] = useState(initSpeciality);
     const navigate = useNavigate();
     const handleDoctorSelect = (speciality) => {
         setSearchDoctor(speciality);
         setDoctorResultHidden(true);
-        navigate(`/instant-consultation?speciality=${speciality}`);
-        window.location.reload();
+        navigate(`/booking-consultation?speciality=${speciality}`);
+        navigate(`/booking-consultation?speciality=${speciality}`);
     }
     return (
         <div className='finddoctor'>
