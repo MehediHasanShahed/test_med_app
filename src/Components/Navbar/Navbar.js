@@ -100,6 +100,12 @@ const Navbar = () => {
                         </Link>
                     </li>
                     <li className="nav__item">
+                        <Link to="/booking-consultation" className="nav__link">
+                            <i className="fas fa-calendar-plus"></i>
+                            <span>Appointments</span>
+                        </Link>
+                    </li>
+                    <li className="nav__item">
                         <Link to="/reviews" className="nav__link">
                             <i className="fas fa-star"></i>
                             <span>Reviews</span>
@@ -108,8 +114,17 @@ const Navbar = () => {
 
                     {isLoggedIn ? (
                         <>
-                            <li className="nav__item">
-                                <span className="nav__link">Hello, {username}</span>
+                            <li className="nav__item dropdown">
+                                <span className="nav__link" onClick={handleDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                    Hello, {username} <i className="fas fa-chevron-down" style={{ fontSize: '0.8em' }}></i>
+                                </span>
+                                {showDropdown && (
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <Link to="/profile" className="dropdown-item">Your Profile</Link>
+                                        </li>
+                                    </ul>
+                                )}
                             </li>
                             <li className="nav__item">
                                 <button className="nav__link nav-btn-login" onClick={handleLogout}>
