@@ -1,0 +1,133 @@
+/* ===== Reports Container ===== */
+.reports-container {
+  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 100px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.reports-container h2 {
+  text-align: left;
+  margin-bottom: 24px;
+  color: #1f2937;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+/* ===== Table Wrapper ===== */
+.reports-table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Reports Table ===== */
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.reports-table th,
+.reports-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.reports-table th {
+  background: #007bff;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.reports-table th:first-child {
+  border-radius: 12px 0 0 0;
+}
+
+.reports-table th:last-child {
+  border-radius: 0 12px 0 0;
+}
+
+.reports-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.reports-table tbody tr:hover {
+  background-color: #f8f9ff;
+}
+
+.reports-table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 12px;
+}
+
+.reports-table tbody tr:last-child td:last-child {
+  border-radius: 0 0 12px 0;
+}
+
+/* ===== Report Buttons ===== */
+.report-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #fff;
+}
+
+.view-btn {
+  background: #2196F3;
+}
+
+.view-btn:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.35);
+}
+
+.download-btn {
+  background: #2196F3;
+}
+
+.download-btn:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.35);
+}
+
+/* ===== No Reports Message ===== */
+.no-reports {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1rem;
+  padding: 40px 20px !important;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .reports-container {
+    margin-top: 80px;
+    padding: 15px;
+  }
+
+  .reports-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .reports-table th,
+  .reports-table td {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .report-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}

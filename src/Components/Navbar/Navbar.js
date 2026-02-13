@@ -123,6 +123,9 @@ const Navbar = () => {
                                         <li>
                                             <Link to="/profile" className="dropdown-item">Your Profile</Link>
                                         </li>
+                                        <li>
+                                            <Link to="/reports" className="dropdown-item">Your Reports</Link>
+                                        </li>
                                     </ul>
                                 )}
                             </li>
