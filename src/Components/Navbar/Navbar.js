@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
@@ -8,6 +8,7 @@ const Navbar = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null);
 
     const handleClick = () => setClick(!click);
 
@@ -33,6 +34,17 @@ const Navbar = () => {
     const handleDropdown = () => {
         setShowDropdown(!showDropdown);
     }
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     useEffect(() => {
         const storedEmail = sessionStorage.getItem("email");
@@ -114,17 +126,17 @@ const Navbar = () => {
 
                     {isLoggedIn ? (
                         <>
-                            <li className="nav__item dropdown">
+                            <li className="nav__item dropdown" ref={dropdownRef}>
                                 <span className="nav__link" onClick={handleDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
                                     Hello, {username} <i className="fas fa-chevron-down" style={{ fontSize: '0.8em' }}></i>
                                 </span>
                                 {showDropdown && (
                                     <ul className="dropdown-menu">
                                         <li>
-                                            <Link to="/profile" className="dropdown-item">Your Profile</Link>
+                                            <Link to="/profile" className="dropdown-item" onClick={() => setShowDropdown(false)}>Your Profile</Link>
                                         </li>
                                         <li>
-                                            <Link to="/reports" className="dropdown-item">Your Reports</Link>
+                                            <Link to="/reports" className="dropdown-item" onClick={() => setShowDropdown(false)}>Your Reports</Link>
                                         </li>
                                     </ul>
                                 )}
