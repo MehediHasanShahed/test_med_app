@@ -24,14 +24,6 @@ const ReportsLayout = () => {
         }
     }, [navigate]);
 
-    const handleViewReport = (report) => {
-        alert(`Viewing report for Dr. ${report.doctorName} - ${report.doctorSpeciality}`);
-    };
-
-    const handleDownloadReport = (report) => {
-        alert(`Downloading report for Dr. ${report.doctorName} - ${report.doctorSpeciality}`);
-    };
-
     return (
         <div className="reports-container">
             <h2>Reports</h2>
@@ -54,20 +46,23 @@ const ReportsLayout = () => {
                                     <td>{report.doctorName}</td>
                                     <td>{report.doctorSpeciality}</td>
                                     <td>
-                                        <button
+                                        <a
+                                            href="/patient_report.pdf"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="report-btn view-btn"
-                                            onClick={() => handleViewReport(report)}
                                         >
                                             View Report
-                                        </button>
+                                        </a>
                                     </td>
                                     <td>
-                                        <button
+                                        <a
+                                            href="/patient_report.pdf"
+                                            download="patient_report.pdf"
                                             className="report-btn download-btn"
-                                            onClick={() => handleDownloadReport(report)}
                                         >
                                             Download Report
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             ))
